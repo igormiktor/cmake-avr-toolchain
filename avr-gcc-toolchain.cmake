@@ -160,11 +160,7 @@ endif( NOT AVR_MCU_SPEED )
 
 # default avr-size args
 if( NOT AVR_SIZE_ARGS )
-   if( APPLE )
-      set( AVR_SIZE_ARGS -B )
-   else( APPLE )
-      set( AVR_SIZE_ARGS -C;--mcu=${AVR_MCU} )
-   endif( APPLE )
+    set( AVR_SIZE_ARGS -C;--mcu=${AVR_MCU} )
 endif( NOT AVR_SIZE_ARGS )
 
 # Prep avrdude special options
