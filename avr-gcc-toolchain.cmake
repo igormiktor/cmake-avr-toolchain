@@ -283,8 +283,12 @@ function( add_avr_executable EXECUTABLE_NAME )
         -DF_CPU=${AVR_MCU_SPEED}
    )
 
-   target_link_libraries(
-        ${elf_file} "-mmcu=${AVR_MCU} -Wl,--gc-sections -mrelax -Wl,-Map,${map_file}"
+   target_link_options(
+        ${elf_file} PUBLIC
+        -mmcu=${AVR_MCU}
+        -Wl,--gc-sections 
+        -mrelax 
+        -Wl,-Map,${map_file}
     )
 
    add_custom_command(
