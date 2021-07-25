@@ -169,7 +169,13 @@ endif( NOT AVR_SIZE_ARGS )
 
 # Prep avrdude special options
 if( AVR_UPLOADTOOL MATCHES avrdude )
-    set( AVR_UPLOADTOOL_OPTIONS -b${AVR_UPLOAD_SPEED} -D -V )
+    if ( AVR_PROGRAMMER MATCHES usbtiny )
+        set( AVR_UPLOADTOOL_OPTIONS -b${AVR_UPLOAD_SPEED} -D -V  )
+        set( AVR_UPLOADTOOL_STATUS_OPTIONS -n -v )
+    else ( AVR_PROGRAMMER MATCHES usbtiny )
+        set( AVR_UPLOADTOOL_OPTIONS -b${AVR_UPLOAD_SPEED} -D -V -P ${AVR_UPLOADTOOL_PORT} )
+        set( AVR_UPLOADTOOL_STATUS_OPTIONS -P ${AVR_UPLOADTOOL_PORT} -n -v )
+    endif ( AVR_PROGRAMMER MATCHES usbtiny )
 endif( AVR_UPLOADTOOL MATCHES avrdude )
 
 # Set the awk arguments
@@ -330,7 +336,6 @@ function( add_avr_executable EXECUTABLE_NAME )
       upload_${EXECUTABLE_NAME}
       ${AVR_UPLOADTOOL} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} ${AVR_UPLOADTOOL_OPTIONS}
          -U flash:w:${hex_file}
-         -P ${AVR_UPLOADTOOL_PORT}
       DEPENDS ${hex_file}
       COMMENT "Uploading ${hex_file} to ${AVR_MCU} using ${AVR_PROGRAMMER}"
    )
@@ -341,7 +346,6 @@ function( add_avr_executable EXECUTABLE_NAME )
       upload_eeprom_${EXECUTABLE_NAME}
       ${AVR_UPLOADTOOL} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} ${AVR_UPLOADTOOL_OPTIONS}
          -U eeprom:w:${eeprom_image}
-         -P ${AVR_UPLOADTOOL_PORT}
       DEPENDS ${eeprom_image}
       COMMENT "Uploading ${eeprom_image} to ${AVR_MCU} using ${AVR_PROGRAMMER}"
    )
@@ -349,7 +353,7 @@ function( add_avr_executable EXECUTABLE_NAME )
    # get status
    add_custom_target(
       get_status_${EXECUTABLE_NAME}
-      ${AVR_UPLOADTOOL} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} -P ${AVR_UPLOADTOOL_PORT} -n -v
+      ${AVR_UPLOADTOOL} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} ${AVR_UPLOADTOOL_STATUS_OPTIONS}
       COMMENT "Get status from ${AVR_MCU}"
    )
 
