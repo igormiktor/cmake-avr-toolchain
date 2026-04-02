@@ -170,7 +170,6 @@ endif( NOT AVR_SIZE_ARGS )
 # Prep avrdude special options
 if( AVR_UPLOADTOOL MATCHES avrdude )
     if ( AVR_PROGRAMMER MATCHES usbtiny )
-        set( AVR_UPLOADTOOL_OPTIONS -b${AVR_UPLOAD_SPEED} -D -V  )
         set( AVR_UPLOADTOOL_STATUS_OPTIONS -n -v )
     else ( AVR_PROGRAMMER MATCHES usbtiny )
         set( AVR_UPLOADTOOL_OPTIONS -b${AVR_UPLOAD_SPEED} -D -V -P ${AVR_UPLOADTOOL_PORT} )
