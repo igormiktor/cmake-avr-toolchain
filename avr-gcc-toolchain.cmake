@@ -185,19 +185,19 @@ endif( AVR_UPLOADTOOL MATCHES avrdude )
 ##########################################################################
 # set default compiler options:
 ##########################################################################
-set( CMAKE_CXX_FLAGS "-fno-exceptions"  CACHE STRING "Default C++ flags for all builds" FORCE )
+#set( CMAKE_CXX_FLAGS "-fno-exceptions"  CACHE STRING "Default C++ flags for all builds" FORCE )
 
-set( CMAKE_C_FLAGS_RELEASE "-O3 -Wall" CACHE STRING "Default C flags for release" FORCE )
-set( CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall" CACHE STRING "Default C++ flags for release" FORCE )
+#set( CMAKE_C_FLAGS_RELEASE "-O3 -Wall" CACHE STRING "Default C flags for release" FORCE )
+#set( CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall" CACHE STRING "Default C++ flags for release" FORCE )
 
-set( CMAKE_C_FLAGS_MINSIZEREL "-Os -mcall-prologues -Wall" CACHE STRING "Default C flags for minimum size release" FORCE )
-set( CMAKE_CXX_FLAGS_MINSIZEREL "-Os -mcall-prologues -Wall" CACHE STRING "Default C++ flags for minimum size release" FORCE )
+#set( CMAKE_C_FLAGS_MINSIZEREL "-Os -mcall-prologues -Wall" CACHE STRING "Default C flags for minimum size release" FORCE )
+#set( CMAKE_CXX_FLAGS_MINSIZEREL "-Os -mcall-prologues -Wall" CACHE STRING "Default C++ flags for minimum size release" FORCE )
 
-set( CMAKE_C_FLAGS_DEBUG "-g -Wall" CACHE STRING "Default C flags for debug" FORCE )
-set( CMAKE_CXX_FLAGS_DEBUG "-g -Wall" CACHE STRING "Default C++ flags for debug" FORCE )
+#set( CMAKE_C_FLAGS_DEBUG "-g -Wall" CACHE STRING "Default C flags for debug" FORCE )
+#set( CMAKE_CXX_FLAGS_DEBUG "-g -Wall" CACHE STRING "Default C++ flags for debug" FORCE )
 
-set( CMAKE_C_FLAGS_RELWITHDEBINFO "-O3 -g -Wall" CACHE STRING "Default C flags for release with debug info" FORCE )
-set( CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -Wall" CACHE STRING "Default C++ flags for release with debug info" FORCE )
+#set( CMAKE_C_FLAGS_RELWITHDEBINFO "-O3 -g -Wall" CACHE STRING "Default C flags for release with debug info" FORCE )
+#set( CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -Wall" CACHE STRING "Default C++ flags for release with debug info" FORCE )
 
 
 
@@ -211,19 +211,19 @@ set( CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -Wall" CACHE STRING "Default C++ fla
 # Release is chosen, because of some optimized functions in the
 # AVR toolchain, e.g. _delay_ms().
 ##########################################################################
-if( NOT ( (CMAKE_BUILD_TYPE MATCHES Release) OR
-        (CMAKE_BUILD_TYPE MATCHES RelWithDebInfo) OR
-        (CMAKE_BUILD_TYPE MATCHES Debug) OR
-        (CMAKE_BUILD_TYPE MATCHES MinSizeRel) ) )
-   set(
-      CMAKE_BUILD_TYPE Release
-      CACHE STRING "Choose cmake build type: Debug Release RelWithDebInfo MinSizeRel"
-      FORCE
-   )
-endif( NOT ( (CMAKE_BUILD_TYPE MATCHES Release) OR
-           (CMAKE_BUILD_TYPE MATCHES RelWithDebInfo) OR
-           (CMAKE_BUILD_TYPE MATCHES Debug) OR
-           (CMAKE_BUILD_TYPE MATCHES MinSizeRel) ) )
+#if( NOT ( (CMAKE_BUILD_TYPE MATCHES Release) OR
+#        (CMAKE_BUILD_TYPE MATCHES RelWithDebInfo) OR
+#        (CMAKE_BUILD_TYPE MATCHES Debug) OR
+#        (CMAKE_BUILD_TYPE MATCHES MinSizeRel) ) )
+#   set(
+#      CMAKE_BUILD_TYPE Release
+#      CACHE STRING "Choose cmake build type: Debug Release RelWithDebInfo MinSizeRel"
+#      FORCE
+#   )
+#endif( NOT ( (CMAKE_BUILD_TYPE MATCHES Release) OR
+#           (CMAKE_BUILD_TYPE MATCHES RelWithDebInfo) OR
+#           (CMAKE_BUILD_TYPE MATCHES Debug) OR
+#           (CMAKE_BUILD_TYPE MATCHES MinSizeRel) ) )
 
 
 
