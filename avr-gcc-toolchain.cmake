@@ -284,8 +284,10 @@ function( add_avr_executable EXECUTABLE_NAME )
         -fshort-enums
         -funsigned-char
         -funsigned-bitfields
-        -mmcu=${AVR_MCU}
-        -DF_CPU=${AVR_MCU_SPEED}
+        -mmcu=${AVR_MCU} 
+   )
+   target_compile_definitions( ${elf_file} PUBLIC 
+        F_CPU=${AVR_MCU_SPEED}
    )
 
    target_link_libraries(
@@ -410,7 +412,9 @@ function( add_avr_library LIBRARY_NAME )
         -funsigned-char
         -funsigned-bitfields
         -mmcu=${AVR_MCU}
-        -DF_CPU=${AVR_MCU_SPEED}
+   )
+   target_compile_definitions( ${lib_file} PUBLIC
+        F_CPU=${AVR_MCU_SPEED}
    )
 
    if( NOT TARGET ${LIBRARY_NAME} )
