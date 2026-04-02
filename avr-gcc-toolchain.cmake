@@ -177,11 +177,9 @@ if( AVR_UPLOADTOOL MATCHES avrdude )
     endif ( AVR_PROGRAMMER MATCHES usbtiny )
 endif( AVR_UPLOADTOOL MATCHES avrdude )
 
-# Set the awk arguments
-#set( AWK_ARGS -f firmwaresize.awk )
-
-
-
+#
+# Below is all commented out to make the toolchain work with CMakePresets.json
+#
 ##########################################################################
 # set default compiler options:
 ##########################################################################
