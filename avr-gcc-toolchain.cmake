@@ -53,7 +53,7 @@ option( WITH_MCU "Add the MCU type to the target file name." OFF )
 find_program( AVR_CC avr-gcc )
 find_program( AVR_CXX avr-g++ )
 find_program( AVR_OBJCOPY avr-objcopy )
-find_program( AVR_SIZE_TOOL avr-size )
+find_program( AVR_SIZE_TOOL avr-objdump )
 find_program( AVR_OBJDUMP avr-objdump )
 find_program( AWK awk )
 
@@ -164,7 +164,7 @@ endif( NOT AVR_MCU_SPEED )
 
 # default avr-size args
 if( NOT AVR_SIZE_ARGS )
-    set( AVR_SIZE_ARGS -C;--mcu=${AVR_MCU} )
+    set( AVR_SIZE_ARGS -Pmem-usage )
 endif( NOT AVR_SIZE_ARGS )
 
 # Prep avrdude special options
@@ -297,8 +297,9 @@ function( add_avr_executable EXECUTABLE_NAME )
       COMMAND
          ${AVR_OBJCOPY} -j .text -j .data -O ihex ${elf_file} ${hex_file}
       COMMAND
-         ${AVR_SIZE_TOOL} ${AVR_SIZE_ARGS} ${elf_file} "|" ${AWK} -f firmwaresize_${EXECUTABLE_NAME}.awk
-      DEPENDS ${elf_file} firmwaresize_${EXECUTABLE_NAME}.awk
+         ${AVR_SIZE_TOOL} ${AVR_SIZE_ARGS} ${elf_file}  
+      DEPENDS
+         ${elf_file}
    )
 
    # eeprom
@@ -366,23 +367,7 @@ function( add_avr_executable EXECUTABLE_NAME )
    # size
    add_custom_target(
       size_${EXECUTABLE_NAME}
-         ${AVR_SIZE_TOOL} ${AVR_SIZE_ARGS} ${elf_file}  "|" ${AWK} -f firmwaresize_${EXECUTABLE_NAME}.awk
-      DEPENDS ${elf_file} firmwaresize_${EXECUTABLE_NAME}.awk
-   )
-
-   add_custom_target(
-      firmwaresize_${EXECUTABLE_NAME}.awk
-      COMMAND
-        echo "BEGIN {ORS=\"\";print \"\\\\n\\\\033[1;33mFirmware size (\"}" > firmwaresize_${EXECUTABLE_NAME}.awk
-      COMMAND
-        echo "/^Device/ {print \$2 \") is...  \"}" >> firmwaresize_${EXECUTABLE_NAME}.awk
-      COMMAND
-        echo "/^Program/ {print \"Flash (program): \" \$2 \" \" \$3 \" \" \$4 \")  \"}" >> firmwaresize_${EXECUTABLE_NAME}.awk
-      COMMAND
-        echo "/^Data/ {print \"RAM\ (globals): \" \$2 \" \" \$3 \" \" \$4 \")  \"}" >> firmwaresize_${EXECUTABLE_NAME}.awk
-      COMMAND
-        echo "END {print \"\\\\033[0m\\\\n\\\\n\"}" >> firmwaresize_${EXECUTABLE_NAME}.awk
-      VERBATIM
+         ${AVR_SIZE_TOOL} ${AVR_SIZE_ARGS} ${elf_file}  
    )
 
 endfunction( add_avr_executable )
